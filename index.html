@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Prediction on Weight lifting Exercise data set</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Prediction on Weight lifting Exercise data set</h1>
+
+<p>In this project, I have trained a random forest model on the dataset. </p>
+
+<h1>Data Import and Split into training and validation sets</h1>
+
+<ul>
+<li>The dataset was obtained as a csv file from the source and imported into R using import Dataset in R studio.</li>
+<li>As there was no test set with labelled examples, I first split the data into training and validation sets.</li>
+</ul>
+
+<pre><code class="r">library(caret)
+</code></pre>
+
+<pre><code>## Warning: package &#39;caret&#39; was built under R version 3.0.3
+</code></pre>
+
+<pre><code>## Loading required package: lattice
+## Loading required package: ggplot2
+</code></pre>
+
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.0.3
+</code></pre>
+
+<pre><code class="r">pml.training &lt;- read.csv(&quot;C:/Users/saswatac/Downloads/pml-training.csv&quot;)
+pml.testing &lt;- read.csv(&quot;C:/Users/saswatac/Downloads/pml-testing.csv&quot;)
+inTrain = createDataPartition(y = pml.training$classe, p = 0.8, list = FALSE)
+trainingSampples = pml.training[inTrain]
+validationSampples = pml.training[-inTrain,]
+</code></pre>
+
+<h1>Data Exploration</h1>
+
+<ul>
+<li>From the training set, I selected the 28 features with no missing values-</li>
+</ul>
+
+<pre><code class="r">trainingFeatures = trainingSampples[c(&quot;roll_belt&quot;, &quot;pitch_belt&quot;, &quot;yaw_belt&quot;, &quot;gyros_belt_x&quot;, &quot;gyros_belt_y&quot;, &quot;gyros_belt_z&quot;, &quot;accel_belt_x&quot;, &quot;accel_belt_y&quot;, &quot;accel_belt_z&quot;, &quot;magnet_belt_x&quot;, &quot;magnet_belt_y&quot;, &quot;magnet_belt_z&quot;, &quot;roll_arm&quot;, &quot;pitch_arm&quot;, &quot;yaw_arm&quot;, &quot;total_accel_arm&quot;, &quot;gyros_arm_x&quot;, &quot;gyros_arm_y&quot;, &quot;gyros_arm_z&quot;, &quot;accel_arm_x&quot;, &quot;accel_arm_y&quot;, &quot;accel_arm_z&quot;, &quot;magnet_arm_x&quot;, &quot;magnet_arm_y&quot;, &quot;magnet_arm_z&quot;, &quot;roll_dumbbell&quot;, &quot;pitch_dumbbell&quot;, &quot;yaw_dumbbell&quot;)]
+</code></pre>
+
+<ul>
+<li>Did some preliminary plots for each of these features. For example</li>
+</ul>
+
+<pre><code class="r">qplot(roll_belt, X, color = classe, data = pml.training)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-3"/> </p>
+
+<ul>
+<li>I discovered that certain features like roll_belt, pitch_belt, yaw_belt, accel_belt_x etc. were modal, and could be transformed into categorical variables like high, low, medium.</li>
+<li>magnet_belt_x and accel_belt_x were correlated.</li>
+</ul>
+
+<h1>Model Building</h1>
+
+<ul>
+<li>I first decided to try random forest without any preprocessing and using default settings. </li>
+</ul>
+
+<pre><code class="r"># vanilaRfModel = train (x= trainingFeatures, y = trainingSampples$classe, method = &quot;rf&quot;)
+</code></pre>
+
+<ul>
+<li>The training results looked promising</li>
+</ul>
+
+<pre><code class="r">#vanilaRfModel$results
+#  mtry  Accuracy     Kappa  AccuracySD     KappaSD
+#1    2 0.9765968 0.9703886 0.002394119 0.003043853
+#2   15 0.9768968 0.9707720 0.002162413 0.002756254
+#3   28 0.9675826 0.9589989 0.004002836 0.005048018
+</code></pre>
+
+<ul>
+<li>The accuracy on the validation set was good too!
+confusionMatrix(validationSampples$classe, predict(vanilaRfModel, validationFeatures))
+Accuracy across all classes was 98%!</li>
+<li>So this meant the <strong>expected out of sample error</strong> is 2%.</li>
+<li>Confident with these values, I used this model to predict the 20 test cases and achieved 100% acuracy.</li>
+</ul>
+
+</body>
+
+</html>
+
